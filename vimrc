@@ -21,7 +21,7 @@ filetype on
 filetype plugin on
 
 " Enable Omni-completion
-" set omnifunc=syntaxcomplete#Complete
+set omnifunc=syntaxcomplete#Complete
 
 " Load an indent file for the detected file type.
 filetype indent on
@@ -64,6 +64,13 @@ nnoremap <leader>b! :ls!<CR>
 " My plugins that I use
 packadd vimcomplete
 packadd vim-airline
+packadd vim-airline-themes
+
+" Options for: vim-airline-themes
+let g:airline_theme='google_dark' 
+let g:airline_section_y = []
+let g:airline_extensions = []
+let g:airline_section_z = airline#section#create_right(['%p%%', '%l/%L', 'c%c'])
 
 " Options for: vimcomplete
 let g:vimcomplete_tab_enable = 1

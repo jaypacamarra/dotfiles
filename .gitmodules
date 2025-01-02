@@ -1,0 +1,6 @@
+[submodule "pack/downloads/opt/vim-airline"]
+	path = pack/downloads/opt/vim-airline
+	url = https://github.com/vim-airline/vim-airline
+[submodule "pack/downloads/opt/vimcomplete"]
+	path = pack/downloads/opt/vimcomplete
+	url = https://github.com/girishji/vimcomplete.git

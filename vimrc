@@ -21,10 +21,13 @@ filetype on
 filetype plugin on
 
 " Enable Omni-completion
-set omnifunc=syntaxcomplete#Complete
+" set omnifunc=syntaxcomplete#Complete
 
 " Load an indent file for the detected file type.
 filetype indent on
+
+" Turn on ruler so we can see curson column
+set ruler
 
 " Turn syntax highlighting on.
 syntax on
@@ -38,6 +41,9 @@ set nowrap
 " Set relative numbers on
 set number
 set relativenumber
+
+" Set tab rules
+set tabstop=8
 
 " My remaps
 nnoremap <SPACE> <Nop>
@@ -54,3 +60,11 @@ nnoremap <leader>wk <C-w>k
 nnoremap <leader>wl <C-w>l
 nnoremap <leader>bb :ls<CR>
 nnoremap <leader>b! :ls!<CR>
+
+" My plugins that I use
+packadd vimcomplete
+packadd vim-airline
+
+" Options for: vimcomplete
+let g:vimcomplete_tab_enable = 1
+source ~/.vim/config/vimcomplete.vim

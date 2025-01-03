@@ -45,6 +45,9 @@ set relativenumber
 " Set tab rules
 set tabstop=8
 
+" Set colorscheme
+colorscheme elflord
+
 " My remaps
 nnoremap <SPACE> <Nop>
 let mapleader=" "

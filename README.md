@@ -3,7 +3,18 @@ These are the configuration files for my preferred development environment.
 
 ## Requirements
 - Vim >= 0.9.0
+- GNU Stow >= 2.0.0
 
 ## Install
-- Create a symlink for vimrc to ~/.vimrc
-- place the `config` and `pack` folders in ~/.vim
+This will create symlinks to the target directory defined in the stow directory.
+
+For example, you can install the neovim configuration with:
+```
+stow nvim
+```
+
+## Uninstall
+This will remove the symlinks that was created with `stow`
+```
+TODO
+```

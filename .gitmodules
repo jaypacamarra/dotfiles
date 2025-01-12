@@ -1,9 +1,9 @@
 [submodule "pack/downloads/opt/vim-airline"]
-	path = pack/downloads/opt/vim-airline
+	path = vim/.vim/pack/downloads/opt/vim-airline
 	url = https://github.com/vim-airline/vim-airline
 [submodule "pack/downloads/opt/vimcomplete"]
-	path = pack/downloads/opt/vimcomplete
+	path = vim/.vim/pack/pack/downloads/opt/vimcomplete
 	url = https://github.com/girishji/vimcomplete.git
 [submodule "pack/downloads/opt/vim-airline-themes"]
-	path = pack/downloads/opt/vim-airline-themes
+	path = vim/.vim/pack/config/downloads/opt/vim-airline-themes
 	url = https://github.com/vim-airline/vim-airline-themes.git

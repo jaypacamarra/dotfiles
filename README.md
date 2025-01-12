@@ -14,7 +14,7 @@ stow nvim
 ```
 
 ## Uninstall
-This will remove the symlinks that was created with `stow`
+This will remove the symlinks that was created with `stow` for nvim:
 ```
-TODO
+stow -D nvim
 ```

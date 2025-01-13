@@ -16,6 +16,9 @@ alias cp='cp -i'
 # git aliases (from zsh plugin minus the functions)
 source ~/.git_plugin_bash.sh
 
+# source starship configuration
+eval "$(starship init bash)"
+
 # fzf shell integration
 which fzf &>/dev/null && eval "$(fzf --bash)" || echo "fzf is not installed, ignore fzf shell integration..."
 

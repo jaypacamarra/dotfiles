@@ -12,6 +12,11 @@
 # (sorted alphabetically)
 #
 
+# used by gpsup, ggpull, ggpush, etc.
+function git_current_branch() {
+        git rev-parse --abbrev-ref HEAD
+}
+
 alias g='git'
 
 alias ga='git add'

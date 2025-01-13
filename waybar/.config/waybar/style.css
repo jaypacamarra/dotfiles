@@ -23,17 +23,21 @@
   color: @lavender;
   border-radius: 1rem;
   margin-left: 0.3rem;
-  margin-right: 0.3rem;
+  margin-right: 0.8rem;
 }
 
 #workspaces button.active {
   color: @sapphire;
   border-radius: 1rem;
+  margin-left: 0.3rem;
+  margin-right: 0.8rem;
 }
 
 #workspaces button:hover {
   color: @sapphire;
   border-radius: 1rem;
+  margin-left: 0.3rem;
+  margin-right: 0.8rem;
 }
 
 #cpu,

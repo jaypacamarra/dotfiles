@@ -13,6 +13,8 @@ alias e=nvim
 alias mv='mv -i'
 alias rm='rm -i'
 alias cp='cp -i'
+# git aliases (from zsh plugin minus the functions)
+source ~/.git_plugin_bash.sh
 
 # fzf shell integration
 which fzf &>/dev/null && eval "$(fzf --bash)" || echo "fzf is not installed, ignore fzf shell integration..."

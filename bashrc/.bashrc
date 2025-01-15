@@ -27,3 +27,8 @@ PS1='[\u@\h \W]\$ '
 
 # rustup shell setup
 . "$HOME/.cargo/env"
+
+# for zsh like tab completion
+bind 'set show-all-if-ambiguous on'
+bind 'TAB:menu-complete'
+

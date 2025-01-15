@@ -10,6 +10,7 @@
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias e=nvim
+alias r=ranger
 alias mv='mv -i'
 alias rm='rm -i'
 alias cp='cp -i'

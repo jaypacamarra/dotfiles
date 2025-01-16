@@ -70,3 +70,6 @@ alias r=ranger
 alias mv='mv -i'
 alias rm='rm -i'
 alias cp='cp -i'
+
+# Add to PATH
+PATH=$PATH:"$HOME/bin"

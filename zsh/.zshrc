@@ -73,3 +73,4 @@ alias cp='cp -i'
 
 # Add to PATH
 PATH=$PATH:"$HOME/bin"
+PATH=$PATH:"/opt/st/cubeprg/bin"

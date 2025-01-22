@@ -59,6 +59,35 @@ return {
           desc = "Close buffer from tabline",
         },
 
+        -- mappings for GPT prompt AI plugin
+        ["<Leader>P"] = {
+          desc = "GPT prompt"
+        },
+        ["<Leader>Pf"] = {
+          ":GpChatFinder <cr>",
+          desc = "Find GPT chat"
+        },
+        ["<Leader>Pn"] = {
+          ":GpChatNew <cr>",
+          desc = "New GPT prompt buffer"
+        },
+        ["<Leader>Pp"] = {
+          ":GpPopup <cr>",
+          desc = "GPT popup"
+        },
+        ["<Leader>Pi"] = {
+          ":GpImplement <cr>",
+          desc = "GPT implement"
+        },
+        ["<Leader>Pv"] = {
+          ":GpChatToggle vsplit <cr>",
+          desc = "GPT prompt vertical split"
+        },
+        ["<Leader>Ps"] = {
+          ":GpChatToggle split <cr>",
+          desc = "GPT prompt horizontal split"
+        },
+
         -- tables with just a `desc` key will be registered with which-key if it's installed
         -- this is useful for naming menus
         -- ["<Leader>b"] = { desc = "Buffers" },

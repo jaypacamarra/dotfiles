@@ -3,6 +3,7 @@ These are the configuration files for my preferred development environment.
 
 ## Requirements
 - Vim >= 0.9.0
+- ruby >= 2.6
 - GNU Stow >= 2.0.0
 
 ## Install

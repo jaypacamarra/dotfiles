@@ -63,7 +63,7 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 
 # aliases
 alias c=clear
-alias ls='ls --color=auto'
+alias ls='colorls'
 alias grep='grep --color=auto'
 alias e=nvim
 alias r=ranger
@@ -71,6 +71,11 @@ alias mv='mv -i'
 alias rm='rm -i'
 alias cp='cp -i'
 
+# colorls plugin for tab completion
+source $(dirname $(gem which colorls))/tab_complete.sh
+
 # Add to PATH
 PATH=$PATH:"$HOME/bin"
 PATH=$PATH:"/opt/st/cubeprg/bin"
+PATH=$PATH:"$HOME/.local/share/gem/ruby/3.3.0/bin"
+

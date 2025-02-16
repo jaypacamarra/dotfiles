@@ -74,6 +74,9 @@ alias cp='cp -i'
 # colorls plugin for tab completion
 source $(dirname $(gem which colorls))/tab_complete.sh
 
+# Default editor
+EDITOR=nvim
+
 # Add to PATH
 PATH=$PATH:"$HOME/bin"
 PATH=$PATH:"/opt/st/cubeprg/bin"

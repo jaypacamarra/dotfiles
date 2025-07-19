@@ -42,13 +42,10 @@ setopt hist_ignore_dups
 setopt hist_find_no_dups
 
 # fzf shell integration
-which fzf &>/dev/null && eval "$(fzf --zsh)" || echo "fzf is not installed, ignore fzf shell integration..."
-
-# initialize starship command prompt
-eval "$(starship init zsh)"
+# which fzf &>/dev/null && eval "$(fzf --zsh)" || echo "fzf is not installed, ignore fzf shell integration..."
 
 # rustup shell setup
-. "$HOME/.cargo/env"
+#. "$HOME/.cargo/env"
 
 #bindings
 bindkey -e
@@ -63,22 +60,15 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 
 # aliases
 alias c=clear
-alias ls='colorls'
 alias grep='grep --color=auto'
-alias e=nvim
+alias e=vim
 alias r=ranger
 alias mv='mv -i'
 alias rm='rm -i'
 alias cp='cp -i'
 
-# colorls plugin for tab completion
-source $(dirname $(gem which colorls))/tab_complete.sh
-
 # Default editor
-EDITOR=nvim
+EDITOR=vim
 
-# Add to PATH
-PATH=$PATH:"$HOME/bin"
-PATH=$PATH:"/opt/st/cubeprg/bin"
-PATH=$PATH:"$HOME/.local/share/gem/ruby/3.3.0/bin"
-
+# Activate zoxide (better cd)
+eval "$(zoxide init zsh)"

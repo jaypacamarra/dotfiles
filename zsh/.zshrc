@@ -41,9 +41,6 @@ setopt hist_save_no_dups
 setopt hist_ignore_dups
 setopt hist_find_no_dups
 
-# fzf shell integration
-which fzf &>/dev/null && eval "$(fzf --zsh)" || echo "fzf is not installed, ignore fzf shell integration..."
-
 # rustup shell setup
 #. "$HOME/.cargo/env"
 

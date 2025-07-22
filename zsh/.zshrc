@@ -65,7 +65,8 @@ alias rm='rm -i'
 alias cp='cp -i'
 
 # Default editor
-EDITOR=vim
+export VISUAL=vim
+export EDITOR=vim
 
 # Activate zoxide (better cd)
 eval "$(zoxide init zsh)"

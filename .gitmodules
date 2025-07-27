@@ -7,3 +7,6 @@
 [submodule "pack/downloads/opt/vim-airline-themes"]
 	path = vim/.vim/pack/config/downloads/opt/vim-airline-themes
 	url = https://github.com/vim-airline/vim-airline-themes.git
+[submodule "vim/.vim/pack/plugins/start/vim-tmux-navigator"]
+	path = vim/.vim/pack/plugins/start/vim-tmux-navigator
+	url = git@github.com:christoomey/vim-tmux-navigator.git

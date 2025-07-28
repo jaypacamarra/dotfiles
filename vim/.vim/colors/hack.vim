@@ -73,6 +73,8 @@ hi SpecialKey   ctermfg=red
 hi NonText      cterm=bold           ctermfg=darkblue
 hi Directory    ctermfg=darkcyan
 hi Directory    cterm=bold    	     guifg=#00C000     guibg=#000000     ctermfg=46      ctermbg=0   
+hi CursorLine   guifg=NONE           guibg=#002000        gui=NONE          cterm=NONE        ctermbg=22
+hi CursorLineNr guifg=#00FF00        guibg=#002000        gui=bold          ctermfg=10        ctermbg=22      cterm=bold
 hi ErrorMsg     cterm=bold           ctermfg=7         ctermbg=1
 hi IncSearch    cterm=NONE           ctermfg=yellow    ctermbg=green
 hi Search       cterm=NONE           ctermfg=white     ctermbg=grey

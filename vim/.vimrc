@@ -51,18 +51,26 @@ hi Error ctermfg=black ctermbg=red cterm=bold
 hi ErrorMsg ctermfg=black ctermbg=red cterm=bold
 hi MoreMsg ctermfg=black ctermbg=red cterm=bold   
 
+" Enable plugins and load plugin for the detected file type.
+filetype plugin on
+	
+" Set colorscheme
+set termguicolors
+try 
+	colorscheme hack
+catch
+	colorscheme elflord
+endtry
+
+" turn off bell
+set belloff=all
+	
 " ===================================================
 " 		  DISABLED SETTINGS
 " ===================================================
 if 0
 	" Enable type file detection. Vim will be able to try to detect the type of file in use.
 	filetype on
-	
-	" Enable plugins and load plugin for the detected file type.
-	filetype plugin on
-	
-	" Set colorscheme
-	 colorscheme elflord
 	
 	" My remaps
 	nnoremap <SPACE> <Nop>

@@ -57,14 +57,22 @@ filetype plugin on
 " Set colorscheme
 set termguicolors
 try 
-	colorscheme catppuccin_macchiato
+	colorscheme catppuccin_mocha
 catch
 	colorscheme retrobox
 endtry
 
 " turn off bell
 set belloff=all
-	
+
+" VIM plug
+" Plugin section
+call plug#begin('~/.vim/plugged')
+
+Plug 'octol/vim-cpp-enhanced-highlight'
+
+call plug#end()
+
 " ===================================================
 " 		  DISABLED SETTINGS
 " ===================================================

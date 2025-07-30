@@ -57,9 +57,9 @@ filetype plugin on
 " Set colorscheme
 set termguicolors
 try 
-	colorscheme hack
+	colorscheme catppuccin_macchiato
 catch
-	colorscheme elflord
+	colorscheme retrobox
 endtry
 
 " turn off bell

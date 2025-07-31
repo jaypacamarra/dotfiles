@@ -4,6 +4,10 @@ set path+=**
 " Display all matching files when we tab complete
 set wildmenu
 
+" Completion settings
+set completeopt=menu,menuone,popup,noselect
+set previewpopup=height:10,width:60
+
 " There are certain files that we would never want to edit with Vim.
 " Wildmenu will ignore files with these extensions.
 set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx

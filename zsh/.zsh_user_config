@@ -69,6 +69,7 @@ export VISUAL=vim
 export EDITOR=vim
 
 # Activate zoxide (better cd)
+unalias zi
 eval "$(zoxide init zsh)"
 
 # Set up fzf key bindings and fuzzy completion

@@ -59,15 +59,10 @@ hi MoreMsg ctermfg=black ctermbg=red cterm=bold
 filetype plugin on
 	
 " Tmux color configuration
-if exists('$TMUX')
-  set t_Co=256
-  set notermguicolors  " Disable true colors in tmux
-else
-  " Enable true colors outside tmux
-  if exists('+termguicolors')
-    set termguicolors
-  endif
-endif
+let &t_8f = "\<Esc>[38:2:%lu:%lu:%lum"
+let &t_8b = "\<Esc>[48:2:%lu:%lu:%lum"
+set t_Co=256
+set termguicolors  " Disable true colors in tmux
 
 " Set colorscheme
 try 

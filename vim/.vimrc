@@ -58,8 +58,18 @@ hi MoreMsg ctermfg=black ctermbg=red cterm=bold
 " Enable plugins and load plugin for the detected file type.
 filetype plugin on
 	
+" Tmux color configuration
+if exists('$TMUX')
+  set t_Co=256
+  set notermguicolors  " Disable true colors in tmux
+else
+  " Enable true colors outside tmux
+  if exists('+termguicolors')
+    set termguicolors
+  endif
+endif
+
 " Set colorscheme
-set termguicolors
 try 
 	colorscheme catppuccin_mocha
 catch

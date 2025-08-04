@@ -19,6 +19,13 @@ sudo systemctl enable lightdm
 # Install TPM
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
+# Install polybar themes
+git clone https://github.com/adi1090x/polybar-themes.git /tmp/polythemes
+cd /tmp/polythemes
+cp fonts/* ~/.local/share/fonts/
+fc-cache -fv
+rm -rf /tmp/polythemes
+
 # Install ohmyzsh plugins
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions

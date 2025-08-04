@@ -68,10 +68,12 @@ alias cp='cp -i'
 export VISUAL=vim
 export EDITOR=vim
 
-# Activate zoxide (better cd)
-unalias zi
-eval "$(zoxide init zsh)"
+# evctivate zoxide with 'z' command
+eval "$(zoxide init zsh --cmd z)"
 
 # Set up fzf key bindings and fuzzy completion
 source /usr/share/doc/fzf/examples/key-bindings.zsh
 source /usr/share/doc/fzf/examples/completion.zsh
+
+# source profile
+source $HOME/.profile

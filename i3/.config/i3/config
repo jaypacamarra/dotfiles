@@ -215,5 +215,7 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-# Start polybar
-exec_always --no-startup-id $HOME/.config/polybar/forest/launch.sh
+bar {
+	position top
+	status_command i3status
+}

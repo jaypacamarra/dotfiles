@@ -18,6 +18,10 @@ set incsearch
 " Disable compatibility with vi which can cause unexpected issues.
 set nocompatible
 
+" indent configuration
+set noai
+set nosi
+
 " Enable Omni-completion
 set omnifunc=syntaxcomplete#Complete
 

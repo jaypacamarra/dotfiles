@@ -31,7 +31,7 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 # aliases
 alias c=clear
 alias grep='grep --color=auto'
-alias e=vim
+alias e=nvim
 alias r=ranger
 alias mv='mv -i'
 alias rm='rm -i'

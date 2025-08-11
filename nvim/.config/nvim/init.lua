@@ -86,18 +86,22 @@ require("lazy").setup({
         callback = function(ev)
           local filetype = vim.bo[ev.buf].filetype
           
+          -- Save cursor position
+          local cursor_pos = vim.api.nvim_win_get_cursor(0)
+          
           -- Use clang-format for C/C++ files
           if filetype == "c" or filetype == "cpp" or filetype == "h" or filetype == "hpp" then
             local clang_format_path = vim.fn.expand("$HOME/.clang-format")
             if vim.fn.filereadable(clang_format_path) == 1 then
               vim.cmd("silent! %!clang-format --style=file:" .. clang_format_path)
-              -- Reset cursor position after formatting
-              vim.cmd("normal! ``")
             end
           else
             -- Use LSP formatting for other file types
             vim.lsp.buf.format({ async = false })
           end
+          
+          -- Restore cursor position
+          vim.api.nvim_win_set_cursor(0, cursor_pos)
         end,
       })
     end,

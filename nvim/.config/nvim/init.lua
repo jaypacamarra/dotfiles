@@ -22,6 +22,7 @@ vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.termguicolors = true
 vim.opt.signcolumn = "yes"
+vim.opt.path:append("**")
 
 -- Window resizing with arrow keys
 vim.keymap.set("n", "<C-Up>", ":resize -2<CR>", { silent = true })
@@ -76,6 +77,27 @@ require("lazy").setup({
           vim.keymap.set("n", "<leader>f", function()
             vim.lsp.buf.format({ async = true })
           end, opts)
+        end,
+      })
+
+      -- Format on save
+      vim.api.nvim_create_autocmd("BufWritePre", {
+        group = vim.api.nvim_create_augroup("FormatOnSave", {}),
+        callback = function(ev)
+          local filetype = vim.bo[ev.buf].filetype
+          
+          -- Use clang-format for C/C++ files
+          if filetype == "c" or filetype == "cpp" or filetype == "h" or filetype == "hpp" then
+            local clang_format_path = vim.fn.expand("$HOME/.clang-format")
+            if vim.fn.filereadable(clang_format_path) == 1 then
+              vim.cmd("silent! %!clang-format --style=file:" .. clang_format_path)
+              -- Reset cursor position after formatting
+              vim.cmd("normal! ``")
+            end
+          else
+            -- Use LSP formatting for other file types
+            vim.lsp.buf.format({ async = false })
+          end
         end,
       })
     end,

@@ -4,6 +4,10 @@ set path+=**
 " Display all matching files when we tab complete
 set wildmenu
 
+" Completion settings
+set completeopt=menu,menuone,popup,noselect
+set previewpopup=height:10,width:60
+
 " There are certain files that we would never want to edit with Vim.
 " Wildmenu will ignore files with these extensions.
 set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
@@ -13,6 +17,10 @@ set incsearch
 
 " Disable compatibility with vi which can cause unexpected issues.
 set nocompatible
+
+" indent configuration
+set noai
+set nosi
 
 " Enable Omni-completion
 set omnifunc=syntaxcomplete#Complete
@@ -54,17 +62,30 @@ hi MoreMsg ctermfg=black ctermbg=red cterm=bold
 " Enable plugins and load plugin for the detected file type.
 filetype plugin on
 	
+" Tmux color configuration
+let &t_8f = "\<Esc>[38:2:%lu:%lu:%lum"
+let &t_8b = "\<Esc>[48:2:%lu:%lu:%lum"
+set t_Co=256
+set termguicolors  " Disable true colors in tmux
+
 " Set colorscheme
-set termguicolors
 try 
-	colorscheme hack
+	colorscheme catppuccin_mocha
 catch
-	colorscheme elflord
+	colorscheme retrobox
 endtry
 
 " turn off bell
 set belloff=all
-	
+
+" VIM plug
+" Plugin section
+call plug#begin('~/.vim/plugged')
+
+Plug 'octol/vim-cpp-enhanced-highlight'
+
+call plug#end()
+
 " ===================================================
 " 		  DISABLED SETTINGS
 " ===================================================

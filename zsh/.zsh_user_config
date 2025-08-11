@@ -1,33 +1,6 @@
 # Created by jay for 5.9
 # Jan 15, 2025
 
-# Set the directory we want to store zinit and plugins
-ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
-
-# Download Zinit if its not there yet
-if [ ! -d "$ZINIT_HOME" ]; then
-  mkdir -p "$(dirname $ZINIT_HOME)"
-  git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
-fi
-
-# zinit plugins
-source "${ZINIT_HOME}/zinit.zsh"
-zinit light zsh-users/zsh-syntax-highlighting
-zinit light zsh-users/zsh-completions
-zinit light zsh-users/zsh-autosuggestions
-zinit light Aloxaf/fzf-tab
-autoload -Uz compinit
-compinit
-
-# Add in snippets
-zinit snippet OMZL::git.zsh
-zinit snippet OMZP::git
-zinit snippet OMZP::sudo
-zinit snippet OMZP::archlinux
-zinit snippet OMZP::command-not-found
-
-zinit cdreplay -q
-
 # History
 HISTSIZE=5000
 HISTFILE=~/.zsh_history
@@ -58,7 +31,7 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 # aliases
 alias c=clear
 alias grep='grep --color=auto'
-alias e=vim
+alias e=nvim
 alias r=ranger
 alias mv='mv -i'
 alias rm='rm -i'
@@ -68,9 +41,12 @@ alias cp='cp -i'
 export VISUAL=vim
 export EDITOR=vim
 
-# Activate zoxide (better cd)
-eval "$(zoxide init zsh)"
+# evctivate zoxide with 'z' command
+eval "$(zoxide init zsh --cmd z)"
 
 # Set up fzf key bindings and fuzzy completion
 source /usr/share/doc/fzf/examples/key-bindings.zsh
 source /usr/share/doc/fzf/examples/completion.zsh
+
+# source profile
+source $HOME/.profile

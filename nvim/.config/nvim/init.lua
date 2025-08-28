@@ -13,8 +13,8 @@ vim.g.maplocalleader = "\\"
 -- Basic options
 vim.opt.number = true
 vim.opt.relativenumber = true
-vim.opt.tabstop = 4
-vim.opt.shiftwidth = 4
+vim.opt.tabstop = 2
+vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 vim.opt.smartindent = true
 vim.opt.wrap = false
@@ -23,6 +23,9 @@ vim.opt.smartcase = true
 vim.opt.termguicolors = true
 vim.opt.signcolumn = "yes"
 vim.opt.path:append("**")
+vim.opt.clipboard = "unnamedplus"
+vim.opt.hlsearch = false
+vim.opt.modeline = false
 
 -- Window resizing with arrow keys
 vim.keymap.set("n", "<C-Up>", ":resize -2<CR>", { silent = true })
@@ -46,6 +49,9 @@ require("lazy").setup({
       -- Rust analyzer setup
       lspconfig.rust_analyzer.setup({
         capabilities = capabilities,
+        on_attach = function(client, bufnr)
+          client.server_capabilities.semanticTokensProvider = nil
+        end,
         settings = {
           ["rust-analyzer"] = {
             cargo = {
@@ -58,6 +64,39 @@ require("lazy").setup({
               enable = true,
             },
           },
+        },
+      })
+
+      -- Clangd setup for C/C++
+      lspconfig.clangd.setup({
+        capabilities = capabilities,
+        on_attach = function(client, bufnr)
+          client.server_capabilities.semanticTokensProvider = nil
+        end,
+        cmd = {
+          "clangd",
+          "--background-index",
+          "--header-insertion=never",
+          "--completion-style=detailed",
+          "--function-arg-placeholders",
+          "--fallback-style=none",
+        },
+        init_options = {
+          usePlaceholders = true,
+          completeUnimported = false,
+          clangdFileStatus = true,
+          fallbackFlags = { "-std=c++17" },
+        },
+        handlers = {
+          ["textDocument/publishDiagnostics"] = function(err, result, ctx, config)
+            if result and result.diagnostics then
+              result.diagnostics = vim.tbl_filter(function(diagnostic)
+                local message = diagnostic.message:lower()
+                return not message:find("file not found")
+              end, result.diagnostics)
+            end
+            vim.lsp.diagnostic.on_publish_diagnostics(err, result, ctx, config)
+          end,
         },
       })
 
@@ -86,22 +125,20 @@ require("lazy").setup({
         callback = function(ev)
           local filetype = vim.bo[ev.buf].filetype
           
-          -- Save cursor position
-          local cursor_pos = vim.api.nvim_win_get_cursor(0)
-          
           -- Use clang-format for C/C++ files
           if filetype == "c" or filetype == "cpp" or filetype == "h" or filetype == "hpp" then
             local clang_format_path = vim.fn.expand("$HOME/.clang-format")
             if vim.fn.filereadable(clang_format_path) == 1 then
-              vim.cmd("silent! %!clang-format --style=file:" .. clang_format_path)
+              -- Set formatprg to use clang-format and format with gq
+              vim.bo.formatprg = "clang-format --style=file:" .. clang_format_path
+              local view = vim.fn.winsaveview()
+              vim.cmd("silent! normal! gggqG")
+              vim.fn.winrestview(view)
             end
           else
             -- Use LSP formatting for other file types
             vim.lsp.buf.format({ async = false })
           end
-          
-          -- Restore cursor position
-          vim.api.nvim_win_set_cursor(0, cursor_pos)
         end,
       })
     end,
@@ -192,7 +229,16 @@ require("lazy").setup({
     "nvim-tree/nvim-tree.lua",
     dependencies = "nvim-tree/nvim-web-devicons",
     config = function()
-      require("nvim-tree").setup({})
+      require("nvim-tree").setup({
+        actions = {
+          open_file = {
+            resize_window = false,
+          },
+        },
+        view = {
+          preserve_window_proportions = true,
+        },
+      })
       vim.keymap.set("n", "<leader>e", "<cmd>NvimTreeToggle<CR>", { silent = true })
     end,
   },

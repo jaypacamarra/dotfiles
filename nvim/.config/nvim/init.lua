@@ -61,6 +61,19 @@ require("lazy").setup({
         },
       })
 
+      -- Python LSP setup
+      lspconfig.pyright.setup({
+        capabilities = capabilities,
+        settings = {
+          python = {
+            analysis = {
+              autoSearchPaths = true,
+              useLibraryCodeForTypes = true,
+            },
+          },
+        },
+      })
+
       -- LSP keymaps
       vim.api.nvim_create_autocmd("LspAttach", {
         group = vim.api.nvim_create_augroup("UserLspConfig", {}),
@@ -175,7 +188,7 @@ require("lazy").setup({
     build = ":TSUpdate",
     config = function()
       require("nvim-treesitter.configs").setup({
-        ensure_installed = { "lua", "rust", "toml" },
+        ensure_installed = { "lua", "rust", "toml", "python" },
         auto_install = true,
         highlight = {
           enable = true,
@@ -192,7 +205,22 @@ require("lazy").setup({
     "nvim-tree/nvim-tree.lua",
     dependencies = "nvim-tree/nvim-web-devicons",
     config = function()
-      require("nvim-tree").setup({})
+      require("nvim-tree").setup({
+        update_focused_file = {
+          enable = true,
+          update_root = false,
+          ignore_list = {},
+        },
+        view = {
+          width = 30,
+        },
+        renderer = {
+          highlight_opened_files = "name",
+        },
+        filters = {
+          dotfiles = false,
+        },
+      })
       vim.keymap.set("n", "<leader>e", "<cmd>NvimTreeToggle<CR>", { silent = true })
     end,
   },

@@ -2,235 +2,179 @@
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
   local lazyrepo = "https://github.com/folke/lazy.nvim.git"
-  vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "--branch=stable",
+    lazyrepo,
+    lazypath,
+  })
 end
+
 vim.opt.rtp:prepend(lazypath)
 
 -- Leader key
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
+-- ============================================
 -- Basic options
+-- ============================================
+
 vim.opt.number = true
 vim.opt.relativenumber = true
-vim.opt.tabstop = 4
-vim.opt.shiftwidth = 4
-vim.opt.expandtab = true
-vim.opt.smartindent = true
 vim.opt.wrap = false
+vim.opt.ruler = true
+
+vim.opt.tabstop = 8
+vim.opt.shiftwidth = 8
+vim.opt.expandtab = true
+
+vim.opt.autoindent = false
+vim.opt.smartindent = false
+
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
+
+vim.opt.hlsearch = false
+vim.opt.incsearch = true
+
 vim.opt.termguicolors = true
 vim.opt.signcolumn = "yes"
-vim.opt.path:append("**")
 
--- Window resizing with arrow keys
+vim.opt.completeopt = { "menu", "menuone", "popup", "noselect" }
+
+vim.opt.wildmenu = true
+
+vim.opt.splitright = false
+
+vim.opt.grepprg = "rg --vimgrep --smart-case"
+vim.opt.grepformat = "%f:%l:%c:%m"
+
+-- quick fix window show index
+vim.o.quickfixtextfunc = "{info -> v:lua._G.qftf(info)}"
+
+function _G.qftf(info)
+  local items = vim.fn.getqflist({ id = info.id, items = 0 }).items
+  local ret = {}
+
+  for idx, item in ipairs(items) do
+    local filename = vim.fn.bufname(item.bufnr)
+
+    table.insert(ret,
+      string.format("%3d %d:%d %s %s",
+        idx,
+        item.lnum,
+        item.col,
+        filename,
+        item.text))
+  end
+
+  return ret
+end
+
+vim.opt.wildignore = {
+  "*.docx",
+  "*.jpg",
+  "*.png",
+  "*.gif",
+  "*.pdf",
+  "*.pyc",
+  "*.exe",
+  "*.flv",
+  "*.img",
+  "*.xlsx",
+}
+
+vim.opt.compatible = false
+
+vim.opt.undofile = true
+
+local undo_dir = vim.fn.stdpath("state") .. "/undo"
+vim.opt.undodir = undo_dir
+
+if vim.fn.isdirectory(undo_dir) == 0 then
+  vim.fn.mkdir(undo_dir, "p")
+end
+
+vim.opt.modeline = false
+
+vim.opt.swapfile = false
+vim.opt.backup = false
+vim.opt.writebackup = false
+
+vim.opt.belloff = "all"
+
+vim.opt.omnifunc = "syntaxcomplete#Complete"
+
+-- Uncomment if you want recursive file searching
+-- vim.opt.path:append("**")
+
+-- ============================================
+-- Create undo directory if missing
+-- ============================================
+
+local undo_dir = vim.fn.expand("~/.vim/undo")
+
+if vim.fn.isdirectory(undo_dir) == 0 then
+  vim.fn.mkdir(undo_dir, "p")
+end
+
+-- ============================================
+-- Syntax / filetype
+-- ============================================
+
+vim.cmd("syntax on")
+vim.cmd("filetype plugin indent on")
+
+-- ============================================
+-- Colorscheme
+-- ============================================
+
+vim.cmd.colorscheme("torte")
+
+-- ============================================
+-- Highlight customization
+-- ============================================
+
+vim.cmd([[
+  highlight Error ctermfg=black ctermbg=red cterm=bold
+  highlight ErrorMsg ctermfg=black ctermbg=red cterm=bold
+  highlight MoreMsg ctermfg=black ctermbg=red cterm=bold
+]])
+
+-- ============================================
+-- netrw
+-- ============================================
+
+vim.g.netrw_altv = 1
+vim.g.netrw_keepdir = 0
+vim.g.netrw_banner = 0
+vim.g.netrw_liststyle = 3
+vim.g.netrw_fastbrowse = 2
+vim.g.netrw_browse_split = 4
+vim.g.netrw_winsize = 25
+
+-- ============================================
+-- Window resizing
+-- ============================================
+
 vim.keymap.set("n", "<C-Up>", ":resize -2<CR>", { silent = true })
 vim.keymap.set("n", "<C-Down>", ":resize +2<CR>", { silent = true })
 vim.keymap.set("n", "<C-Left>", ":vertical resize -2<CR>", { silent = true })
 vim.keymap.set("n", "<C-Right>", ":vertical resize +2<CR>", { silent = true })
 
--- Setup lazy.nvim
+-- ============================================
+-- Plugins
+-- ============================================
+
 require("lazy").setup({
-  -- LSP Configuration
-  {
-    "neovim/nvim-lspconfig",
-    event = { "BufReadPre", "BufNewFile" },
-    dependencies = {
-      "hrsh7th/cmp-nvim-lsp",
-    },
-    config = function()
-      local lspconfig = require("lspconfig")
-      local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
-      -- Rust analyzer setup
-      lspconfig.rust_analyzer.setup({
-        capabilities = capabilities,
-        settings = {
-          ["rust-analyzer"] = {
-            cargo = {
-              allFeatures = true,
-            },
-            procMacro = {
-              enable = true,
-            },
-            diagnostics = {
-              enable = true,
-            },
-          },
-        },
-      })
-
-      -- Python LSP setup
-      lspconfig.pyright.setup({
-        capabilities = capabilities,
-        settings = {
-          python = {
-            analysis = {
-              autoSearchPaths = true,
-              useLibraryCodeForTypes = true,
-            },
-          },
-        },
-      })
-
-      -- LSP keymaps
-      vim.api.nvim_create_autocmd("LspAttach", {
-        group = vim.api.nvim_create_augroup("UserLspConfig", {}),
-        callback = function(ev)
-          local opts = { buffer = ev.buf, silent = true }
-          
-          vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-          vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
-          vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
-          vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
-          vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-          vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
-          vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
-          vim.keymap.set("n", "<leader>f", function()
-            vim.lsp.buf.format({ async = true })
-          end, opts)
-        end,
-      })
-
-      -- Format on save
-      vim.api.nvim_create_autocmd("BufWritePre", {
-        group = vim.api.nvim_create_augroup("FormatOnSave", {}),
-        callback = function(ev)
-          local filetype = vim.bo[ev.buf].filetype
-          
-          -- Save cursor position
-          local cursor_pos = vim.api.nvim_win_get_cursor(0)
-          
-          -- Use clang-format for C/C++ files
-          if filetype == "c" or filetype == "cpp" or filetype == "h" or filetype == "hpp" then
-            local clang_format_path = vim.fn.expand("$HOME/.clang-format")
-            if vim.fn.filereadable(clang_format_path) == 1 then
-              vim.cmd("silent! %!clang-format --style=file:" .. clang_format_path)
-            end
-          else
-            -- Use LSP formatting for other file types
-            vim.lsp.buf.format({ async = false })
-          end
-          
-          -- Restore cursor position
-          vim.api.nvim_win_set_cursor(0, cursor_pos)
-        end,
-      })
-    end,
-  },
-
-  -- Autocompletion
-  {
-    "hrsh7th/nvim-cmp",
-    event = "InsertEnter",
-    dependencies = {
-      "hrsh7th/cmp-buffer",
-      "hrsh7th/cmp-path",
-      "hrsh7th/cmp-nvim-lsp",
-      "L3MON4D3/LuaSnip",
-      "saadparwaiz1/cmp_luasnip",
-      "rafamadriz/friendly-snippets",
-    },
-    config = function()
-      local cmp = require("cmp")
-      local luasnip = require("luasnip")
-
-      require("luasnip.loaders.from_vscode").lazy_load()
-
-      cmp.setup({
-        snippet = {
-          expand = function(args)
-            luasnip.lsp_expand(args.body)
-          end,
-        },
-        mapping = cmp.mapping.preset.insert({
-          ["<C-k>"] = cmp.mapping.select_prev_item(),
-          ["<C-j>"] = cmp.mapping.select_next_item(),
-          ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-          ["<C-f>"] = cmp.mapping.scroll_docs(4),
-          ["<C-Space>"] = cmp.mapping.complete(),
-          ["<C-e>"] = cmp.mapping.abort(),
-          ["<CR>"] = cmp.mapping.confirm({ select = false }),
-          ["<Tab>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-              cmp.select_next_item()
-            elseif luasnip.expand_or_locally_jumpable() then
-              luasnip.expand_or_jump()
-            else
-              fallback()
-            end
-          end, { "i", "s" }),
-          ["<S-Tab>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-              cmp.select_prev_item()
-            elseif luasnip.locally_jumpable(-1) then
-              luasnip.jump(-1)
-            else
-              fallback()
-            end
-          end, { "i", "s" }),
-        }),
-        sources = {
-          { name = "nvim_lsp" },
-          { name = "luasnip" },
-          { name = "buffer" },
-          { name = "path" },
-        },
-      })
-    end,
-  },
-
-  -- Treesitter for better syntax highlighting
-  {
-    "nvim-treesitter/nvim-treesitter",
-    event = { "BufReadPre", "BufNewFile" },
-    build = ":TSUpdate",
-    config = function()
-      require("nvim-treesitter.configs").setup({
-        ensure_installed = { "lua", "rust", "toml", "python" },
-        auto_install = true,
-        highlight = {
-          enable = true,
-        },
-        indent = {
-          enable = true,
-        },
-      })
-    end,
-  },
-
-  -- File explorer
-  {
-    "nvim-tree/nvim-tree.lua",
-    dependencies = "nvim-tree/nvim-web-devicons",
-    config = function()
-      require("nvim-tree").setup({
-        update_focused_file = {
-          enable = true,
-          update_root = false,
-          ignore_list = {},
-        },
-        view = {
-          width = 30,
-        },
-        renderer = {
-          highlight_opened_files = "name",
-        },
-        filters = {
-          dotfiles = false,
-        },
-      })
-      vim.keymap.set("n", "<leader>e", "<cmd>NvimTreeToggle<CR>", { silent = true })
-    end,
-  },
-
-  -- Tmux & split navigation
   {
     "christoomey/vim-tmux-navigator",
     cmd = {
       "TmuxNavigateLeft",
-      "TmuxNavigateDown", 
+      "TmuxNavigateDown",
       "TmuxNavigateUp",
       "TmuxNavigateRight",
       "TmuxNavigatePrevious",
@@ -244,13 +188,8 @@ require("lazy").setup({
     },
   },
 
-  -- Colorscheme
   {
-    "folke/tokyonight.nvim",
-    lazy = false,
-    priority = 1000,
-    config = function()
-      vim.cmd([[colorscheme tokyonight-night]])
-    end,
+    "octol/vim-cpp-enhanced-highlight",
+    ft = { "c", "cpp", "h", "hpp" },
   },
 })

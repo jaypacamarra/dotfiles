@@ -4,6 +4,7 @@
 (load "~/.config/emacs/.emacs.rc/rc.el")
 
 ;;; Appearance
+(set-face-attribute 'default nil :height 140)
 
 ;; disable the ugly startup screen
 (setq inhibit-startup-screen t)
@@ -33,6 +34,10 @@
 (rc/require 'vterm)
 
 (evil-mode 1)
+
+;; tell evil to use xref-goto-xref on RET when in xref buffers
+(evil-define-key 'normal xref--xref-buffer-mode-map
+  (kbd "RET") #'xref-goto-xref)
 
 (setq display-line-numbers-type 'relative)
 (global-display-line-numbers-mode)

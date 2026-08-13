@@ -19,3 +19,15 @@ This will remove the symlinks that was created with `stow` for nvim:
 ```
 stow -D nvim
 ```
+
+## File Organization and Structure
+```
+~/code/			# no projects directly under this dir.
+	apps/		# apps i use or install from source.
+	view/		# read-only.
+	<client>/	# professional work. one per client or employer.
+	contrib/	# github forks i contribute to (except my own).
+	my/		# personal projects.
+	junk/		# R&D. Temp experiments.
+~/bin/			# scripts, possibly symlinks.
+```

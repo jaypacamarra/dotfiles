@@ -43,4 +43,6 @@
 (setq tags-case-fold-search nil)
 (global-display-line-numbers-mode)
 
+(rc/require 'cmake-mode)
+
 (load-file custom-file)

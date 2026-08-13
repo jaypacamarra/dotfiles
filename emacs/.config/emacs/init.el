@@ -40,6 +40,7 @@
   (kbd "RET") #'xref-goto-xref)
 
 (setq display-line-numbers-type 'relative)
+(setq tags-case-fold-search nil)
 (global-display-line-numbers-mode)
 
 (load-file custom-file)

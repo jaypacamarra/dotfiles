@@ -66,6 +66,12 @@
 ;; magit
 (rc/require 'magit)
 
+;; suppress annoying *Warnings* buffer that pops up
+(add-to-list 'display-buffer-alist
+             '("\\*Warnings\\*"
+               (display-buffer-no-window)
+               (allow-no-window . t)))
+
 (when (boundp 'custom-file)
   (unless (file-exists-p custom-file)
     (write-region "" nil custom-file))

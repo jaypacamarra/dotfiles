@@ -33,6 +33,8 @@
 
 (rc/require 'vterm)
 
+(rc/require 'markdown-mode)
+
 (evil-mode 1)
 
 ;; tell evil to use xref-goto-xref on RET when in xref buffers

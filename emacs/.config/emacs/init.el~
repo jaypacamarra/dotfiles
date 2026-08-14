@@ -44,10 +44,6 @@
 (evil-define-key 'normal xref--xref-buffer-mode-map
   (kbd "RET") #'xref-goto-xref)
 
-;; tell evil to use emacs builtin tab-to-tab-stop func on TAB in insert mode
-(evil-define-key 'insert 'global
-  (kbd "TAB") #'tab-to-tab-stop)
-
 (setq display-line-numbers-type 'relative)
 (setq tags-case-fold-search nil)
 (global-display-line-numbers-mode)
@@ -81,9 +77,6 @@
              '("\\*Warnings\\*"
                (display-buffer-no-window)
                (allow-no-window . t)))
-
-;; turn off line wrap
-(setq-default truncate-lines t)
 
 (when (boundp 'custom-file)
   (unless (file-exists-p custom-file)

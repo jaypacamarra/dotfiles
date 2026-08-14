@@ -25,17 +25,20 @@
 (unless (package-installed-p 'evil)
   (package-install 'evil))
 
+(setq evil-want-keybinding nil)
 (setq evil-want-C-u-scroll t)
 (setq evil-default-state 'normal)
 
 ;; Enable Evil
 (rc/require 'evil)
+(rc/require 'evil-collection)
 
 (rc/require 'vterm)
 
 (rc/require 'markdown-mode)
 
 (evil-mode 1)
+(evil-collection-init)
 
 ;; tell evil to use xref-goto-xref on RET when in xref buffers
 (evil-define-key 'normal xref--xref-buffer-mode-map
@@ -57,16 +60,9 @@
 (add-to-list 'major-mode-remap-alist
              '(c++-mode . c++-ts-mode))
 
-;;; tabs and spaces
-;; figures out how many spaces to use for
-;; indents based on current usage in file
-(rc/require 'dtrt-indent)
+;;; tabs and spaces (Linux kernel style; see .emacs.rc/indent.el)
+(load "~/.config/emacs/.emacs.rc/indent.el")
 
-;; Use spaces when indenting
-(setq-default indent-tabs-mode nil)
-
-;; Display/interpret a TAB as 8 columns
-(setq-default tab-width 8)
 
 (when (boundp 'custom-file)
   (unless (file-exists-p custom-file)

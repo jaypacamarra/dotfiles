@@ -57,6 +57,17 @@
 (add-to-list 'major-mode-remap-alist
              '(c++-mode . c++-ts-mode))
 
+;;; tabs and spaces
+;; figures out how many spaces to use for
+;; indents based on current usage in file
+(rc/require 'dtrt-indent)
+
+;; Use spaces when indenting
+(setq-default indent-tabs-mode nil)
+
+;; Display/interpret a TAB as 8 columns
+(setq-default tab-width 8)
+
 (when (boundp 'custom-file)
   (unless (file-exists-p custom-file)
     (write-region "" nil custom-file))

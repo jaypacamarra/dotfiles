@@ -54,11 +54,17 @@
       '((c "https://github.com/tree-sitter/tree-sitter-c" "v0.23.6")
         (cpp "https://github.com/tree-sitter/tree-sitter-cpp" "v0.23.2")))
 
+(defun my-underscore-is-word ()
+  (modify-syntax-entry ?_ "w"))
+
 (add-to-list 'major-mode-remap-alist
              '(c-mode . c-ts-mode))
 
 (add-to-list 'major-mode-remap-alist
              '(c++-mode . c++-ts-mode))
+
+(add-hook 'c-ts-mode-hook #'my-underscore-is-word)
+(add-hook 'c++-ts-mode-hook #'my-underscore-is-word)
 
 ;;; tabs and spaces (Linux kernel style; see .emacs.rc/indent.el)
 (load "~/.config/emacs/.emacs.rc/indent.el")

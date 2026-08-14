@@ -63,6 +63,8 @@
 ;;; tabs and spaces (Linux kernel style; see .emacs.rc/indent.el)
 (load "~/.config/emacs/.emacs.rc/indent.el")
 
+;; magit
+(rc/require 'magit)
 
 (when (boundp 'custom-file)
   (unless (file-exists-p custom-file)

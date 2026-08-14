@@ -45,4 +45,14 @@
 
 (rc/require 'cmake-mode)
 
+(setq treesit-language-source-alist
+      '((c "https://github.com/tree-sitter/tree-sitter-c" "v0.23.6")
+        (cpp "https://github.com/tree-sitter/tree-sitter-cpp" "v0.23.2")))
+
+(add-to-list 'major-mode-remap-alist
+             '(c-mode . c-ts-mode))
+
+(add-to-list 'major-mode-remap-alist
+             '(c++-mode . c++-ts-mode))
+
 (load-file custom-file)

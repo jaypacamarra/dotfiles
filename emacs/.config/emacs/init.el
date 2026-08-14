@@ -1,4 +1,4 @@
-(setq custom-file "~/.emacs.custom.el")
+(setq custom-file "~/.config/emacs/.emacs.custom.el")
 (package-initialize)
 
 (load "~/.config/emacs/.emacs.rc/rc.el")
@@ -55,4 +55,7 @@
 (add-to-list 'major-mode-remap-alist
              '(c++-mode . c++-ts-mode))
 
-(load-file custom-file)
+(when (boundp 'custom-file)
+  (unless (file-exists-p custom-file)
+    (write-region "" nil custom-file))
+  (load-file custom-file))

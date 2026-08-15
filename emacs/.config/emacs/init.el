@@ -86,6 +86,15 @@
 ;; turn off line wrap
 (setq-default truncate-lines t)
 
+;; vertico - vertical completion UI
+(rc/require 'vertico)
+(vertico-mode)
+
+;; orderless - for better matching
+(rc/require 'orderless)
+
+(rc/require 'consult)
+
 (when (boundp 'custom-file)
   (unless (file-exists-p custom-file)
     (write-region "" nil custom-file))

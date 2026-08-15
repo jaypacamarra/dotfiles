@@ -95,6 +95,16 @@
 
 (rc/require 'consult)
 
+;; C/C++ macros (all caps) get font-lock-const-face in c/c++ ts modes
+(defun my-c-font-lock ()
+  (font-lock-add-keywords
+   nil
+   '(("\\_<[A-Z][A-Z0-9_]+\\_>"
+      . font-lock-constant-face))))
+
+(add-hook 'c-ts-mode-hook #'my-c-font-lock)
+(add-hook 'c++-ts-mode-hook #'my-c-font-lock)
+
 (when (boundp 'custom-file)
   (unless (file-exists-p custom-file)
     (write-region "" nil custom-file))

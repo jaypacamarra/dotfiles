@@ -13,6 +13,7 @@
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
 (menu-bar-mode -1)
+(column-number-mode 1)
 
 ;; theme
 (rc/require-theme 'gruber-darker)

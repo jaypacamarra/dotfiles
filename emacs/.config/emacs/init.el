@@ -105,6 +105,16 @@
 (add-hook 'c-ts-mode-hook #'my-c-font-lock)
 (add-hook 'c++-ts-mode-hook #'my-c-font-lock)
 
+;; function call syntax highlighting
+(defun my-c-function-call-highlighting ()
+  (font-lock-add-keywords
+   nil
+   '(("\\_<\\([[:alpha:]_][[:alnum:]_]*\\)\\_>[[:space:]]*("
+      1 'font-lock-function-call-face))))
+
+(add-hook 'c-ts-mode-hook #'my-c-function-call-highlighting)
+(add-hook 'c++-ts-mode-hook #'my-c-function-call-highlighting)
+
 (when (boundp 'custom-file)
   (unless (file-exists-p custom-file)
     (write-region "" nil custom-file))

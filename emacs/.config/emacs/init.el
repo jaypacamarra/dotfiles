@@ -122,6 +122,14 @@
           (lambda ()
             (display-line-numbers-mode -1)))
 
+;; evil-xref keybindings for better definition/reference nav ergonomics
+(evil-define-key 'normal 'global
+  (kbd "g d") #'xref-find-definitions
+  (kbd "g r") #'xref-find-references
+  (kbd "C-t") #'xref-go-back
+  (kbd "C-o") #'xref-go-back
+  (kbd "C-i") #'xref-go-forward)
+
 (when (boundp 'custom-file)
   (unless (file-exists-p custom-file)
     (write-region "" nil custom-file))

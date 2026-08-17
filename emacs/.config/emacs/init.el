@@ -94,6 +94,8 @@
 (rc/require 'orderless)
 
 (rc/require 'consult)
+(global-set-key (kbd "C-c g") #'consult-ripgrep)
+(global-set-key (kbd "C-x p g") #'consult-ripgrep)
 
 ;; C/C++ macros (all caps) get font-lock-const-face in c/c++ ts modes
 (defun my-c-font-lock ()

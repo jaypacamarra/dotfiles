@@ -117,6 +117,11 @@
 (add-hook 'c-ts-mode-hook #'my-c-function-call-highlighting)
 (add-hook 'c++-ts-mode-hook #'my-c-function-call-highlighting)
 
+;; vterm perf
+(add-hook 'vterm-mode-hook
+          (lambda ()
+            (display-line-numbers-mode -1)))
+
 (when (boundp 'custom-file)
   (unless (file-exists-p custom-file)
     (write-region "" nil custom-file))

@@ -117,11 +117,6 @@
 (add-hook 'c-ts-mode-hook #'my-c-function-call-highlighting)
 (add-hook 'c++-ts-mode-hook #'my-c-function-call-highlighting)
 
-;; vterm perf
-(add-hook 'eat-mode-hook
-          (lambda ()
-            (display-line-numbers-mode -1)))
-
 ;; evil-xref keybindings for better definition/reference nav ergonomics
 (evil-define-key 'normal 'global
   (kbd "g d") #'xref-find-definitions
@@ -133,10 +128,16 @@
 ;; eat terminal
 (rc/require 'eat)
 
-;; in eat-mode prefer to use emacs keybindings (prevents having to enter insert mode)
+;; disable number lines in eat terminal
 (add-hook 'eat-mode-hook
           (lambda ()
-            (evil-emacs-state)))
+            (display-line-numbers-mode -1)))
+
+;; in eat make cursor in insert mode a box
+(dolist (hook '(eat-mode-hook))
+  (add-hook hook
+            (lambda ()
+              (setq-local evil-insert-state-cursor 'box))))
 
 (when (boundp 'custom-file)
   (unless (file-exists-p custom-file)

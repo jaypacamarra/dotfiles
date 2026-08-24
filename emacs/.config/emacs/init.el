@@ -118,7 +118,7 @@
 (add-hook 'c++-ts-mode-hook #'my-c-function-call-highlighting)
 
 ;; vterm perf
-(add-hook 'vterm-mode-hook
+(add-hook 'eat-mode-hook
           (lambda ()
             (display-line-numbers-mode -1)))
 
@@ -129,6 +129,14 @@
   (kbd "C-t") #'xref-go-back
   (kbd "C-o") #'xref-go-back
   (kbd "C-i") #'xref-go-forward)
+
+;; eat terminal
+(rc/require 'eat)
+
+;; in eat-mode prefer to use emacs keybindings (prevents having to enter insert mode)
+(add-hook 'eat-mode-hook
+          (lambda ()
+            (evil-emacs-state)))
 
 (when (boundp 'custom-file)
   (unless (file-exists-p custom-file)

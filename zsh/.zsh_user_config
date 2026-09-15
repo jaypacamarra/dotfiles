@@ -38,8 +38,8 @@ alias rm='rm -i'
 alias cp='cp -i'
 
 # Default editor
-export VISUAL=vim
-export EDITOR=vim
+export VISUAL=nvim
+export EDITOR=nvim
 
 # evctivate zoxide with 'z' command
 eval "$(zoxide init zsh --cmd z)"

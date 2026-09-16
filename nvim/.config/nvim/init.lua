@@ -27,6 +27,7 @@ vim.opt.relativenumber = true
 vim.opt.wrap = false
 vim.opt.ruler = true
 
+vim.g.editorconfig = false
 vim.opt.tabstop = 8
 vim.opt.shiftwidth = 8
 vim.opt.expandtab = true

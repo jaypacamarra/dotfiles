@@ -18,6 +18,9 @@ vim.opt.rtp:prepend(lazypath)
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 -- ============================================
 -- Basic options
 -- ============================================
@@ -177,6 +180,43 @@ require("lazy").setup({
       style = "night",
     },
   },
+
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v3.x",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "MunifTanjim/nui.nvim",
+      "nvim-tree/nvim-web-devicons",
+    },
+    lazy = false,
+    opts = {
+      close_if_last_window = true,
+      filesystem = {
+        use_libuv_file_watcher = true,
+        follow_current_file = {
+          enabled = true,
+          leave_dirs_open = false,
+        },
+        filtered_items = {
+          hide_dotfiles = false,
+          hide_gitignored = false,
+        },
+      },
+    },
+    keys = {
+      {
+        "<leader>e",
+        "<cmd>Neotree filesystem reveal left<cr>",
+        desc = "Neo-tree reveal",
+      },
+      {
+        "<leader>E",
+        "<cmd>Neotree filesystem toggle left<cr>",
+        desc = "Neo-tree toggle",
+      },
+    },
+  },
 })
 
 -- ============================================
@@ -184,18 +224,6 @@ require("lazy").setup({
 -- ============================================
 
 vim.cmd([[colorscheme tokyonight-night]])
-
--- ============================================
--- netrw
--- ============================================
-
-vim.g.netrw_altv = 1
-vim.g.netrw_keepdir = 0
-vim.g.netrw_banner = 0
-vim.g.netrw_liststyle = 3
-vim.g.netrw_fastbrowse = 2
-vim.g.netrw_browse_split = 4
-vim.g.netrw_winsize = 25
 
 -- ============================================
 -- Window resizing

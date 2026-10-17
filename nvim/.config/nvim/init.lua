@@ -132,12 +132,6 @@ vim.cmd("syntax on")
 vim.cmd("filetype plugin indent on")
 
 -- ============================================
--- Colorscheme
--- ============================================
-
-vim.cmd.colorscheme("torte")
-
--- ============================================
 -- Highlight customization
 -- ============================================
 
@@ -146,27 +140,6 @@ vim.cmd([[
   highlight ErrorMsg ctermfg=black ctermbg=red cterm=bold
   highlight MoreMsg ctermfg=black ctermbg=red cterm=bold
 ]])
-
--- ============================================
--- netrw
--- ============================================
-
-vim.g.netrw_altv = 1
-vim.g.netrw_keepdir = 0
-vim.g.netrw_banner = 0
-vim.g.netrw_liststyle = 3
-vim.g.netrw_fastbrowse = 2
-vim.g.netrw_browse_split = 4
-vim.g.netrw_winsize = 25
-
--- ============================================
--- Window resizing
--- ============================================
-
-vim.keymap.set("n", "<C-Up>", ":resize -2<CR>", { silent = true })
-vim.keymap.set("n", "<C-Down>", ":resize +2<CR>", { silent = true })
-vim.keymap.set("n", "<C-Left>", ":vertical resize -2<CR>", { silent = true })
-vim.keymap.set("n", "<C-Right>", ":vertical resize +2<CR>", { silent = true })
 
 -- ============================================
 -- Plugins
@@ -195,4 +168,40 @@ require("lazy").setup({
     "octol/vim-cpp-enhanced-highlight",
     ft = { "c", "cpp", "h", "hpp" },
   },
+
+  {
+    "folke/tokyonight.nvim",
+    lazy = false,
+    priority = 1000,
+    opts = {
+      style = "night",
+    },
+  },
 })
+
+-- ============================================
+-- Colorscheme
+-- ============================================
+
+vim.cmd([[colorscheme tokyonight-night]])
+
+-- ============================================
+-- netrw
+-- ============================================
+
+vim.g.netrw_altv = 1
+vim.g.netrw_keepdir = 0
+vim.g.netrw_banner = 0
+vim.g.netrw_liststyle = 3
+vim.g.netrw_fastbrowse = 2
+vim.g.netrw_browse_split = 4
+vim.g.netrw_winsize = 25
+
+-- ============================================
+-- Window resizing
+-- ============================================
+
+vim.keymap.set("n", "<C-Up>", ":resize -2<CR>", { silent = true })
+vim.keymap.set("n", "<C-Down>", ":resize +2<CR>", { silent = true })
+vim.keymap.set("n", "<C-Left>", ":vertical resize -2<CR>", { silent = true })
+vim.keymap.set("n", "<C-Right>", ":vertical resize +2<CR>", { silent = true })
